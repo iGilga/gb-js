@@ -24,7 +24,7 @@ function numberToObject(num) {
   return result;
 }
 
-let num = Math.random() * 999;
+let num = Math.floor(Math.random() * 999);
 console.log(num);
 let result = numberToObject(num);
 console.log(result);
