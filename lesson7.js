@@ -34,6 +34,10 @@ function init() {
     addEventListener('keydown', changeDirection);
 }
 
+function incrementScore() {
+  divCounter.innerText = ++score;
+}
+
 /**
  * Функция генерации игрового поля
  */
@@ -178,7 +182,7 @@ function haveFood(unit) {
         check = true;
         createFood();
 
-        score++;
+        incrementScore();
     }
     return check;
 }
