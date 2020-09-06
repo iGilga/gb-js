@@ -1,0 +1,35 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Cart</title>
+  <link rel="stylesheet" href="cart.css">
+  <script src="cart.js" charset="utf-8" defer></script>
+</head>
+<body>
+  <div class="container">
+    <divclass="cart">
+      <h3 class="cart-header">Cart</h3>
+      <table id="cart-table">
+        <thead>
+          <tr class="cart-header">
+            <th class="cart-name">Name</th>
+            <th>Quantity</th>
+            <th>Cost</th>
+          </tr>
+        </thead>
+        <tbody id="cart-body">
+          <tr id="total-amount">
+            <td style="border:none"></td>
+            <td>Total:</td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="catalog">
+      <ul id="product-list" class="product-list">
+      </ul>
+    </div>
+  </div>
+</body>
+</html>
