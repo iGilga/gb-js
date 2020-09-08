@@ -7,6 +7,7 @@ var direction = 'y+'; // Направление движения змейки
 var gameIsRunning = false; // Запущена ли игра
 var snake_timer; // Таймер змейки
 var food_timer; // Таймер для еды
+var block_timer;
 var score = 0; // Результат
 
 var divCounter = document.getElementById('counter');
@@ -74,6 +75,7 @@ function startGame() {
 
     snake_timer = setInterval(move, SNAKE_SPEED);//каждые 200мс запускаем функцию move
     setTimeout(createFood, 5000);
+    setInterval(createBlock, 5000);
 }
 
 /**
@@ -133,7 +135,7 @@ function move() {
     // 1) new_unit не часть змейки
     // 2) Змейка не ушла за границу поля
     //console.log(new_unit);
-    if (!isSnakeUnit(new_unit) && new_unit !== undefined) {
+    if (!isSnakeUnit(new_unit) && new_unit !== undefined && isNotBlockUnit(new_unit)) {
         // Добавление новой части змейки
         new_unit.setAttribute('class', new_unit.getAttribute('class') + ' snake-unit');
         snake.push(new_unit);
@@ -214,6 +216,39 @@ function createFood() {
     }
 }
 
+function createBlock() {
+  // рандом
+  let pos = getRandomPosition(FIELD_SIZE_X, FIELD_SIZE_Y);
+
+  var block_cell = document.getElementsByClassName('cell-' + pos.y + '-' + pos.x)[0];
+  var block_cell_classes = block_cell.getAttribute('class').split(' ');
+
+  // проверка на змейку
+  if (!block_cell_classes.includes('snake-unit')) {
+      var classes = '';
+      for (var i = 0; i < block_cell_classes.length; i++) {
+          classes += block_cell_classes[i] + ' ';
+      }
+
+      block_cell.setAttribute('class', classes + 'block-unit');
+  }
+}
+
+function isNotBlockUnit(unit) {
+  var check = true;
+  var unit_classes = unit.getAttribute('class').split(' ');
+  if (unit_classes.includes('block-unit')) {
+      check = false;
+  }
+  return check;
+}
+
+function getRandomPosition(sizeX,sizeY) {
+  return {
+    x: Math.floor(Math.random() * sizeX),
+    y: Math.floor(Math.random() * sizeY),
+  }
+}
 /**
  * Изменение направления движения змейки
  * @param e - событие
