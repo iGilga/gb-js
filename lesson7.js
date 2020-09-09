@@ -75,7 +75,7 @@ function startGame() {
 
     snake_timer = setInterval(move, SNAKE_SPEED);//каждые 200мс запускаем функцию move
     setTimeout(createFood, 5000);
-    setInterval(createBlock, 5000);
+    block_timer = setInterval(createBlock, 5000);
 }
 
 /**
@@ -197,10 +197,9 @@ function createFood() {
 
     while (!foodCreated) { //пока еду не создали
         // рандом
-        var food_x = Math.floor(Math.random() * FIELD_SIZE_X);
-        var food_y = Math.floor(Math.random() * FIELD_SIZE_Y);
+        let pos = getRandomPosition(FIELD_SIZE_X, FIELD_SIZE_Y);
 
-        var food_cell = document.getElementsByClassName('cell-' + food_y + '-' + food_x)[0];
+        var food_cell = document.getElementsByClassName('cell-' + pos.y + '-' + pos.x)[0];
         var food_cell_classes = food_cell.getAttribute('class').split(' ');
 
         // проверка на змейку
@@ -286,6 +285,7 @@ function changeDirection(e) {
 function finishTheGame() {
     gameIsRunning = false;
     clearInterval(snake_timer);
+    clearInterval(block_timer);
     alert('Вы проиграли! Ваш результат: ' + score.toString());
 }
 
